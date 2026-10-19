@@ -1,4 +1,6 @@
-# Airbrush Mask Studio 0.1
+# Airbrush Mask Studio 0.2
+
+[Apri app online](https://francescomorgante.github.io/airbrush-mask-studio/) · [Guida alla generazione automatica](GENERATION.md)
 
 Web app desktop-first React + Vite per progettare maschere da aerografo. Tutte le immagini e le maschere sono elaborate nel browser.
 
@@ -18,7 +20,7 @@ pnpm preview
 
 1. Importa PNG o JPG (massimo 24 megapixel e 80 MB).
 2. Imposta la larghezza o altezza reale in mm; l'altra dimensione segue le proporzioni originali. La scala va specificata dall'utente: non viene dedotta dalla fotografia.
-3. Dipingi sul livello selezionato; cambia nome, colore e visibilità o aggiungi maschere. La gomma cancella solo la maschera attiva. Il diametro è espresso in pixel dell'immagine originale.
+3. Premi **Genera maschera**, regola soglia, inversione e dettaglio, quindi **Crea livello**. Oppure dipingi sul livello selezionato; cambia nome, colore e visibilità o aggiungi maschere. La gomma cancella solo la maschera attiva. Il diametro è espresso in pixel dell'immagine originale.
 4. B: pennello, E: gomma, H: sposta. Spazio + trascinamento o pulsante centrale: pan. Rotella: zoom sul puntatore. Adatta: centra l'immagine. Annulla/Ripeti conserva fino a 30 operazioni.
 5. Salva un `.airbrush.json`. Include immagine, dimensioni, livelli e tratti. Aprilo da qualsiasi PC per proseguire. Il file va salvato esplicitamente: non esiste autosalvataggio o sincronizzazione cloud. Prima di chiudere, l'app segnala le modifiche non salvate.
 
