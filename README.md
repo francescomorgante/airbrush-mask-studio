@@ -1,6 +1,6 @@
-# Airbrush Mask Studio 0.2
+# Airbrush Mask Studio 0.3
 
-[Apri app online](https://francescomorgante.github.io/airbrush-mask-studio/) · [Guida alla generazione automatica](GENERATION.md)
+[Apri app online](https://francescomorgante.github.io/airbrush-mask-studio/) · [Guida alla generazione automatica](GENERATION.md) · [Esportazione PNG e SVG](EXPORT.md)
 
 Web app desktop-first React + Vite per progettare maschere da aerografo. Tutte le immagini e le maschere sono elaborate nel browser.
 
@@ -44,8 +44,8 @@ Da un altro PC basta aprire quell'indirizzo. I file progetto devono essere trasf
 
 - `src/engine/project.js`: modello documento versionato, validazione, serializzazione e coordinate, senza dipendenze React o DOM.
 - `src/engine/render.js`: composizione Canvas 2D. Ogni maschera è composta separatamente; la gomma non modifica la foto o altri livelli.
-- `src/engine/extensions.js`: punti di estensione futuri per vettorializzazione, raccordi, SVG e AI. Non implementati nella v0.1. Geometria in pixel sorgente, conversione in mm tramite dimensioni documento.
+- `src/engine/extensions.js`: punti di estensione futuri per vettorializzazione, raccordi, SVG e AI. Vettorializzazione ed export SVG disponibili dalla v0.3; raccordi e AI restano futuri. Geometria in pixel sorgente, conversione in mm tramite dimensioni documento.
 - `src/main.jsx`: UI React, gestione file, gesture, cronologia e viewport.
 - `tests/engine.test.js`: round trip, validazione, trasformazione coordinate e composizione della gomma.
 
-Il modello conserva tratti rasterizzabili anziché screenshot: zoom e salvataggio sono indipendenti dalla risoluzione dello schermo. L'immagine embedded rende il file autonomo. File versione futura vengono rifiutati per evitare letture scorrette. Limiti: composizione ricalcolata a ogni modifica, massimo 100 livelli e due milioni di punti; immagini grandi o molti tratti possono rallentare. Nessun export SVG, taglio macchina, raccordo o servizio AI attivo in questa versione. Le misure mm sono metadati progettuali e non garantiscono accuratezza di stampa.
+Il modello conserva tratti rasterizzabili anziché screenshot: zoom e salvataggio sono indipendenti dalla risoluzione dello schermo. L'immagine embedded rende il file autonomo. File versione futura vengono rifiutati per evitare letture scorrette. Limiti: composizione ricalcolata a ogni modifica, massimo 100 livelli e due milioni di punti; immagini grandi o molti tratti possono rallentare. Export PNG e SVG disponibile; nessun ponte automatico per stencil, compensazione taglio, raccordo o servizio AI attivo in questa versione. Le misure mm sono metadati progettuali e non garantiscono accuratezza di stampa.
