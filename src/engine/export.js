@@ -6,6 +6,7 @@ export function composeMask(project,image,layerIds){
  const pixels=ctx.createImageData(width,height);for(let i=0;i<mask.length;i++){const v=mask[i]?0:255;pixels.data[i*4]=pixels.data[i*4+1]=pixels.data[i*4+2]=v;pixels.data[i*4+3]=255;}ctx.putImageData(pixels,0,0);
  return {mask,canvas,width,height};
 }
+export function renderBinaryMask(canvas,mask){const ctx=canvas.getContext('2d'),pixels=ctx.createImageData(canvas.width,canvas.height);for(let i=0;i<mask.length;i++){const v=mask[i]?0:255;pixels.data[i*4]=pixels.data[i*4+1]=pixels.data[i*4+2]=v;pixels.data[i*4+3]=255;}ctx.putImageData(pixels,0,0);return canvas;}
 function crc32(bytes){let c=0xffffffff;for(const b of bytes){c^=b;for(let k=0;k<8;k++)c=(c>>>1)^((c&1)?0xedb88320:0);}return (c^0xffffffff)>>>0;}
 // pHYs sets pixels/metre so printing software can recover the user-defined mm size.
 export function withPhysicalSize(png,width,height,widthMm,heightMm){

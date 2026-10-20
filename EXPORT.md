@@ -1,4 +1,4 @@
-# Esportazione — v0.3
+# Esportazione — v0.4
 
 1. Importa una foto o riapri un progetto, poi dipingi o genera la maschera.
 2. Imposta le dimensioni reali in mm nel progetto.
@@ -18,7 +18,7 @@ Contiene veri contorni chiusi, senza immagine raster incorporata. Larghezza e al
 
 Per maschere molto rumorose, oltre 200.000 segmenti di bordo, l'SVG viene rifiutato con un messaggio che propone PNG o una nuova generazione con meno dettagli. Questo limite evita file ingestibili e blocchi prolungati.
 
-Esportare non salva il documento modificabile: conserva anche il file `.airbrush.json`. Nessun dato lascia il dispositivo durante l'esportazione. Ponti per sostenere le isole dello stencil, raccordi e compensazione del taglio non sono inclusi in questa versione.
+Esportare non salva il documento modificabile: conserva anche il file `.airbrush.json`. Nessun dato lascia il dispositivo durante l'esportazione. La v0.4 applica gli stessi raccordi modificabili all'output PNG e SVG; la compensazione del taglio non è inclusa.
 
 ## Verifica
 

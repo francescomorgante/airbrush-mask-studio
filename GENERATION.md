@@ -10,4 +10,4 @@ App pubblicata: https://francescomorgante.github.io/airbrush-mask-studio/
 6. Rifinisci il nuovo livello con pennello e gomma; puoi cambiarne colore, nome e visibilità, oppure annullare la creazione.
 7. Salva il progetto: i parametri generativi e le correzioni manuali sono inclusi insieme all'immagine. I documenti v0.1 sono letti e aggiornati al formato 2. I nuovi documenti richiedono l'app v0.2 o successiva.
 
-L'elaborazione avviene sul dispositivo. Le zone completamente trasparenti del PNG restano escluse; per calcolare la luminosità, i pixel semitrasparenti vengono considerati su fondo bianco. Il risultato è raster: SVG, ponti per stencil, raccordi e AI restano sviluppi futuri. Immagini molto grandi possono richiedere un breve tempo di calcolo.
+L'elaborazione avviene sul dispositivo. Le zone completamente trasparenti del PNG restano escluse; per calcolare la luminosità, i pixel semitrasparenti vengono considerati su fondo bianco. Il risultato raster può essere vettorializzato ed elaborato con i raccordi stencil durante l'esportazione. Immagini molto grandi possono richiedere un breve tempo di calcolo.
