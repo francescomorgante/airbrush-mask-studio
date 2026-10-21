@@ -1,4 +1,4 @@
-# Airbrush Mask Studio 0.4
+# Airbrush Mask Studio 0.5 (in sviluppo)
 
 [Apri app online](https://francescomorgante.github.io/airbrush-mask-studio/) · [Guida alla generazione automatica](GENERATION.md) · [Raccordi stencil](STENCIL.md) · [Esportazione PNG e SVG](EXPORT.md)
 
@@ -50,3 +50,9 @@ Da un altro PC basta aprire quell'indirizzo. I file progetto devono essere trasf
 - `tests/engine.test.js`: round trip, validazione, trasformazione coordinate e composizione della gomma.
 
 Il modello conserva tratti e raccordi modificabili anziché screenshot: zoom e salvataggio sono indipendenti dalla risoluzione dello schermo. L'immagine embedded rende il file autonomo. File versione futura vengono rifiutati per evitare letture scorrette. Limiti: composizione ricalcolata a ogni modifica, massimo 100 livelli, mille raccordi e due milioni di punti; immagini grandi o molti tratti possono rallentare. Export PNG e SVG e ponti automatici per stencil sono disponibili; compensazione del taglio e servizi AI non sono inclusi. Le misure mm sono metadati progettuali e non garantiscono accuratezza di stampa.
+
+## Stato v0.5
+
+Completati nel branch di sviluppo: finestra raccordi con anteprima stabile e impostazioni scrollabili; bacchetta/secchiello con tolleranza, modalità contigua o globale, operazioni aggiungi/sottrai/interseca e anteprima non distruttiva; applicazione al livello attivo o creazione di un livello; eliminazione maschere con conferma, Undo e invalidazione prudenziale dei raccordi; scelta esplicita SVG/PNG mantenendo l'esportatore esistente.
+
+Ancora da completare: filtro micro-isole in millimetri con approvazione per singola classe; classificazione mantenere/rimuovere/raccordare; verifica topologica più ricca e ulteriore riduzione/sovrapposizione dei percorsi automatici; export multiplo. La selezione viene ricalcolata dalla fotografia e può essere rifinita dopo la conferma con pennello/gomma.

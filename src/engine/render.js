@@ -1,8 +1,14 @@
 import {generateMask} from './generate.js';
+import {selectRegions} from './selection.js';
 const generatedCache=new WeakMap();
 function generatedCanvas(image,config,color,width,height){
  const cached=generatedCache.get(config);if(cached?.image===image&&cached.color===color)return cached.canvas;
  const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);const pixels=ctx.getImageData(0,0,width,height),alpha=generateMask(pixels.data,width,height,config),rgb=[1,3,5].map(i=>parseInt(color.slice(i,i+2),16));
+ for(let i=0;i<alpha.length;i++){pixels.data[i*4]=rgb[0];pixels.data[i*4+1]=rgb[1];pixels.data[i*4+2]=rgb[2];pixels.data[i*4+3]=alpha[i];}ctx.putImageData(pixels,0,0);generatedCache.set(config,{image,color,canvas});return canvas;
+}
+function selectionCanvas(image,config,color,width,height){
+ const cached=generatedCache.get(config);if(cached?.image===image&&cached.color===color)return cached.canvas;
+ const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);const pixels=ctx.getImageData(0,0,width,height),alpha=selectRegions(pixels.data,width,height,config),rgb=[1,3,5].map(i=>parseInt(color.slice(i,i+2),16));
  for(let i=0;i<alpha.length;i++){pixels.data[i*4]=rgb[0];pixels.data[i*4+1]=rgb[1];pixels.data[i*4+2]=rgb[2];pixels.data[i*4+3]=alpha[i];}ctx.putImageData(pixels,0,0);generatedCache.set(config,{image,color,canvas});return canvas;
 }
 export function drawStroke(ctx,s,color){
@@ -13,6 +19,7 @@ export function drawStroke(ctx,s,color){
 export function renderLayer(ctx,l,image,width,height){
  ctx.clearRect(0,0,width,height);
  if(l.generated)ctx.drawImage(generatedCanvas(image,l.generated,l.color,width,height),0,0);
+ if(l.regions)ctx.drawImage(selectionCanvas(image,l.regions,l.color,width,height),0,0);
  for(const s of l.strokes)drawStroke(ctx,s,l.color);
 }
 export function renderProject(ctx,project,image,view,scratch,previewLayer=null){
