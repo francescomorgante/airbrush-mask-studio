@@ -1,6 +1,8 @@
 import {generateMask} from './generate.js';
 import {selectRegions,visitSelectionEdges} from './selection.js';
+import {decodeMask} from './bitmap.js';
 const generatedCache=new WeakMap();
+const bitmapCache=new WeakMap();
 function generatedCanvas(image,config,color,width,height){
  const cached=generatedCache.get(config);if(cached?.image===image&&cached.color===color)return cached.canvas;
  const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);const pixels=ctx.getImageData(0,0,width,height),alpha=generateMask(pixels.data,width,height,config),rgb=[1,3,5].map(i=>parseInt(color.slice(i,i+2),16));
@@ -11,6 +13,7 @@ function selectionCanvas(image,config,color,width,height){
  const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);const pixels=ctx.getImageData(0,0,width,height),alpha=selectRegions(pixels.data,width,height,config),rgb=[1,3,5].map(i=>parseInt(color.slice(i,i+2),16));
  for(let i=0;i<alpha.length;i++){pixels.data[i*4]=rgb[0];pixels.data[i*4+1]=rgb[1];pixels.data[i*4+2]=rgb[2];pixels.data[i*4+3]=alpha[i];}ctx.putImageData(pixels,0,0);generatedCache.set(config,{image,color,canvas});return canvas;
 }
+function bitmapCanvas(bitmap,color){const cached=bitmapCache.get(bitmap);if(cached?.color===color)return cached.canvas;const canvas=document.createElement('canvas');canvas.width=bitmap.width;canvas.height=bitmap.height;const ctx=canvas.getContext('2d'),pixels=ctx.createImageData(canvas.width,canvas.height),alpha=decodeMask(bitmap),rgb=[1,3,5].map(i=>parseInt(color.slice(i,i+2),16));for(let i=0;i<alpha.length;i++){pixels.data[i*4]=rgb[0];pixels.data[i*4+1]=rgb[1];pixels.data[i*4+2]=rgb[2];pixels.data[i*4+3]=alpha[i];}ctx.putImageData(pixels,0,0);bitmapCache.set(bitmap,{color,canvas});return canvas;}
 function selectionPreview(image,config,color,width,height){
  const cached=generatedCache.get(config);if(cached?.image===image&&cached.previewColor===color)return cached;
  const source=document.createElement('canvas');source.width=width;source.height=height;const sourceCtx=source.getContext('2d',{willReadFrequently:true});sourceCtx.drawImage(image,0,0);const pixels=sourceCtx.getImageData(0,0,width,height),mask=selectRegions(pixels.data,width,height,config),rgb=[1,3,5].map(i=>parseInt(color.slice(i,i+2),16));
@@ -34,6 +37,7 @@ export function renderLayer(ctx,l,image,width,height){
  ctx.clearRect(0,0,width,height);
  if(l.generated)ctx.drawImage(generatedCanvas(image,l.generated,l.color,width,height),0,0);
  if(l.regions)ctx.drawImage(selectionCanvas(image,l.regions,l.color,width,height),0,0);
+ if(l.bitmap)ctx.drawImage(bitmapCanvas(l.bitmap,l.color),0,0,width,height);
  for(const s of l.strokes)drawStroke(ctx,s,l.color);
 }
 export function renderProject(ctx,project,image,view,scratch,previewLayer=null,selectionStyle=null,phase=0){
