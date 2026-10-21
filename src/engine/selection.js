@@ -18,3 +18,20 @@ export function selectRegions(data,width,height,config){
  config.seeds.forEach((seed,index)=>{const next=candidate(data,width,height,seed,config.tolerance,config.contiguous);if(seed.operation==='intersect'&&index===0)for(let i=0;i<selected.length;i++)selected[i]=next[i]?data[i*4+3]:0;else for(let i=0;i<selected.length;i++){if(seed.operation==='add'&&next[i])selected[i]=data[i*4+3];else if(seed.operation==='subtract'&&next[i])selected[i]=0;else if(seed.operation==='intersect'&&!next[i])selected[i]=0;}});
  return selected;
 }
+
+export function visitSelectionEdges(mask,width,height,visit=()=>{},step=1){
+ if(mask.length!==width*height||!Number.isInteger(width)||!Number.isInteger(height)||width<1||height<1)throw Error('Maschera di selezione non valida.');
+ let count=0;const edge=(x1,y1,x2,y2)=>{if(count%step===0)visit(x1,y1,x2,y2);count++;};
+ for(let y=0;y<height;y++)for(let x=0;x<width;x++){
+  const i=y*width+x;if(!mask[i])continue;
+  if(y===0||!mask[i-width])edge(x,y,x+1,y);
+  if(x===width-1||!mask[i+1])edge(x+1,y,x+1,y+1);
+  if(y===height-1||!mask[i+width])edge(x+1,y+1,x,y+1);
+  if(x===0||!mask[i-1])edge(x,y+1,x,y);
+ }
+ return count;
+}
+export function selectionEdges(mask,width,height){
+ const edges=[];visitSelectionEdges(mask,width,height,(...edge)=>edges.push(...edge));
+ return edges;
+}
