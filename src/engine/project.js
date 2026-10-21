@@ -13,6 +13,7 @@ export function validateProject(p){
  for(const l of p.layers){
  if(typeof l.id!=='string'||ids.has(l.id)||typeof l.name!=='string'||l.name.length>200||typeof l.visible!=='boolean'||!/^#[0-9a-f]{6}$/i.test(l.color)||!Array.isArray(l.strokes))throw Error('Livello non valido.');ids.add(l.id);
  if(l.generated){const g=l.generated;if(p.version<2||!Number.isInteger(g.threshold)||g.threshold<0||g.threshold>255||typeof g.invert!=='boolean'||!Number.isInteger(g.detail)||g.detail<0||g.detail>4)throw Error('Generazione non valida.');}
+ if(l.regions){const r=l.regions;if(!Number.isInteger(r.tolerance)||r.tolerance<0||r.tolerance>255||typeof r.contiguous!=='boolean'||!Array.isArray(r.seeds)||r.seeds.length>500)throw Error('Selezione regioni non valida.');for(const seed of r.seeds)if(!Number.isInteger(seed.x)||!Number.isInteger(seed.y)||seed.x<0||seed.y<0||seed.x>=im.width||seed.y>=im.height||!['add','subtract','intersect'].includes(seed.operation))throw Error('Punto di selezione non valido.');}
  for(const s of l.strokes){if(!['paint','erase'].includes(s.tool)||!Number.isFinite(s.size)||s.size<=0||s.size>10000||!Array.isArray(s.points)||!s.points.length)throw Error('Tratto non valido.');
  for(const pt of s.points){if(!Number.isFinite(pt.x)||!Number.isFinite(pt.y)||Math.abs(pt.x)>100000||Math.abs(pt.y)>100000||++count>2000000)throw Error('Punti non validi o troppi punti.');}}
  }
