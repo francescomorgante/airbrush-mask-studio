@@ -1,6 +1,6 @@
-# Airbrush Mask Studio 0.5 (in sviluppo)
+# Airbrush Mask Studio 0.6 (in sviluppo)
 
-[Apri app online](https://francescomorgante.github.io/airbrush-mask-studio/) · [Guida alla generazione automatica](GENERATION.md) · [Raccordi stencil](STENCIL.md) · [Esportazione PNG e SVG](EXPORT.md)
+[Apri app online](https://francescomorgante.github.io/airbrush-mask-studio/) · [Segmentazione intelligente](SMART_SEGMENTATION.md) · [Guida alla generazione automatica](GENERATION.md) · [Raccordi stencil](STENCIL.md) · [Esportazione PNG e SVG](EXPORT.md)
 
 Web app desktop-first React + Vite per progettare maschere da aerografo. Tutte le immagini e le maschere sono elaborate nel browser.
 

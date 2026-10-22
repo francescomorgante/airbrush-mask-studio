@@ -28,3 +28,19 @@ Limiti: non è disponibile una suite end-to-end con fixture immagine per automat
 - Aggiunti test puri per flood fill contiguo/non contiguo, tolleranza e operazioni booleane, round trip dei punti selezione e regressione strutturale P0 della finestra export.
 - Build production verificata dopo l'incremento. La verifica browser interattiva completa resta da eseguire prima del merge.
 - P4 e il completamento della revisione algoritmica P5 restano esplicitamente aperti; l'attuale algoritmo v0.4 migliorato non viene dichiarato definitivo.
+
+## Segmentazione cromatica v0.6 — 21 ottobre 2026
+
+- Branch `feat/v0.6-smart-segmentation` creato dall'ultimo `origin/main` (`824e20f`), includendo v0.5 e v0.5.1; `main` non modificato direttamente.
+- K-means CIELAB deterministico con 2–16 gruppi, regioni connesse distinte, palette e operazioni aggiungi/sottrai/interseca.
+- Elaborazione spostata in Web Worker; chiudere il dialogo termina il worker. Limite esplicito iniziale: 8 megapixel.
+- Maschere confermate codificate in RLE binario e verificate nel round trip `.airbrush.json`; rendering, tratti, composizione export e raccordi riutilizzano il flusso esistente.
+- Suite locale: 33/33 test superati. Build Vite production riuscita con bundle worker separato.
+- Smoke test browser: caricamento v0.6 verificato nel browser integrato, controlli iniziali accessibili e nessun errore/warning console. Il flusso completo con fotografia resta da provare manualmente prima del merge.
+- Non completati e non dichiarati tali: SLIC, filtri micro-regioni in mm², stop dedicato del calcolo e Isola soggetto con correzioni foreground/background.
+
+## Correzione export v0.6 — 22 ottobre 2026
+
+- Causa individuata: il pulsante download era disabilitato per qualsiasi maschera con isole residue, anche con ponticelli disattivati.
+- Le isole restano evidenziate come avviso topologico, ma non bloccano più SVG o PNG.
+- Il download resta disabilitato soltanto durante il calcolo, se manca un risultato o in presenza di un errore reale di generazione.
