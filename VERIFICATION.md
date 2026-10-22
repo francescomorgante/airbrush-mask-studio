@@ -38,3 +38,9 @@ Limiti: non è disponibile una suite end-to-end con fixture immagine per automat
 - Suite locale: 33/33 test superati. Build Vite production riuscita con bundle worker separato.
 - Smoke test browser: caricamento v0.6 verificato nel browser integrato, controlli iniziali accessibili e nessun errore/warning console. Il flusso completo con fotografia resta da provare manualmente prima del merge.
 - Non completati e non dichiarati tali: SLIC, filtri micro-regioni in mm², stop dedicato del calcolo e Isola soggetto con correzioni foreground/background.
+
+## Correzione export v0.6 — 22 ottobre 2026
+
+- Causa individuata: il pulsante download era disabilitato per qualsiasi maschera con isole residue, anche con ponticelli disattivati.
+- Le isole restano evidenziate come avviso topologico, ma non bloccano più SVG o PNG.
+- Il download resta disabilitato soltanto durante il calcolo, se manca un risultato o in presenza di un errore reale di generazione.
